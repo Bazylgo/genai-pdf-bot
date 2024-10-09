@@ -30,13 +30,19 @@ def create_vector_index(driver, dimension: int) -> None:
     index_query = "CALL db.index.vector.createNodeIndex('stackoverflow', 'Question', 'embedding', $dimension, 'cosine')"
     try:
         driver.query(index_query, {"dimension": dimension})
-    except:  # Already exists
-        pass
+    except SystemExit as e:
+        raise e
+    except BaseException as f:
+        print('Base exception exception')
+        raise f
     index_query = "CALL db.index.vector.createNodeIndex('top_answers', 'Answer', 'embedding', $dimension, 'cosine')"
     try:
         driver.query(index_query, {"dimension": dimension})
-    except:  # Already exists
-        pass
+    except SystemExit as e:
+        raise e
+    except BaseException as f:
+        print('Base exception exception')
+        raise f
 
 
 def create_constraints(driver):
